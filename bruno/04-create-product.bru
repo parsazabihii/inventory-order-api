@@ -1,0 +1,35 @@
+meta {
+  name: Create product
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/products
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Demo keyboard",
+    "sku": "KB-{{runId}}",
+    "category_id": {{categoryId}},
+    "price_cents": 2599,
+    "low_stock_threshold": 3
+  }
+}
+
+script:post-response {
+  bru.setEnvVar('productId', String(res.getBody().data.id));
+}
+
+tests {
+test('Expected status 201', function () { expect(res.getStatus()).to.equal(201); });
+}

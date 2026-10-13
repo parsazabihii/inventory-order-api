@@ -1,0 +1,21 @@
+meta {
+  name: Cancel order
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/orders/{{orderId}}/cancel
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{token}}
+}
+
+tests {
+test('Expected status 200', function () { expect(res.getStatus()).to.equal(200); });
+test('Order cancelled', function () { expect(res.getBody().data.status).to.equal('cancelled'); });
+}

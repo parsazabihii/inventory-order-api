@@ -1,0 +1,32 @@
+meta {
+  name: Receive stock
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/stock-movements
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+  Idempotency-Key: receipt-{{runId}}
+}
+
+body:json {
+  {
+    "warehouse_id": {{warehouseId}},
+    "product_id": {{productId}},
+    "type": "receipt",
+    "quantity": 10,
+    "reason": "Demo initial delivery"
+  }
+}
+
+tests {
+test('Expected status 201', function () { expect(res.getStatus()).to.equal(201); });
+}

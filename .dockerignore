@@ -1,0 +1,9 @@
+vendor
+.git
+.env
+.env.testing
+storage/logs/*
+storage/framework/cache/data/*
+storage/framework/views/*
+bootstrap/cache/*.php
+.phpunit.result.cache

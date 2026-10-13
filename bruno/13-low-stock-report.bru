@@ -1,0 +1,20 @@
+meta {
+  name: Low stock report
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{baseUrl}}/reports/low-stock?warehouse_id={{warehouseId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{token}}
+}
+
+tests {
+test('Expected status 200', function () { expect(res.getStatus()).to.equal(200); });
+}

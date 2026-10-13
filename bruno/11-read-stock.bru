@@ -1,0 +1,21 @@
+meta {
+  name: Read stock
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/stocks?warehouse_id={{warehouseId}}&product_id={{productId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{token}}
+}
+
+tests {
+test('Expected status 200', function () { expect(res.getStatus()).to.equal(200); });
+test('Cancellation restored available stock', function () { expect(res.getBody().data[0].on_hand).to.equal(10); expect(res.getBody().data[0].reserved).to.equal(0); });
+}

@@ -1,0 +1,39 @@
+meta {
+  name: Create order
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/orders
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+  Idempotency-Key: order-{{runId}}
+}
+
+body:json {
+  {
+    "warehouse_id": {{warehouseId}},
+    "customer_name": "Demo customer",
+    "items": [
+      {
+        "product_id": {{productId}},
+        "quantity": 2
+      }
+    ]
+  }
+}
+
+script:post-response {
+  bru.setEnvVar('orderId', String(res.getBody().data.id));
+}
+
+tests {
+test('Expected status 201', function () { expect(res.getStatus()).to.equal(201); });
+}

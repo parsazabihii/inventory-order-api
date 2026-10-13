@@ -1,0 +1,20 @@
+meta {
+  name: Logout
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{baseUrl}}/auth/logout
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{token}}
+}
+
+tests {
+test('Expected status 204', function () { expect(res.getStatus()).to.equal(204); });
+}
